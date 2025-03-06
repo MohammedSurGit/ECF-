@@ -13,11 +13,12 @@ addToTeamImg.src = pokeballImgs[0];
 const id = localStorage.getItem('id');
 team = JSON.parse(localStorage.getItem('pokemonTeam'));
 
-if (team.includes(id)){
-
-    addToTeamImg.src = pokeballImgs[1];
-    addToTeamText.textContent = "Ce pokémon est dans mon équipe !"
-}
+try {
+    if (team.includes(id)){
+        addToTeamImg.src = pokeballImgs[1];
+        addToTeamText.textContent = "Ce pokémon est dans mon équipe !"
+    }
+} catch(error) {console.log(error)}
 
 function getPokemonData(url) {
     fetch(url)
