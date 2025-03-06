@@ -1,0 +1,55 @@
+#filter-select {
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px 0;
+}
+
+a {
+    text-decoration: none;
+    font-size: 1em;
+    color: var(--dark-grey)
+}
+
+#filter {
+    height: fit-content;
+    display: flex;
+    gap: 10px;
+}
+
+#region-select, 
+#type-select {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    padding: 6px 0;
+    font-size: 0.8em;
+    color: var(--light-grey);
+}
+
+select {
+    background-color: var(--dark-grey);
+    color: white;
+    width: 100px;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+@media screen and (min-width: 1024px){
+    #pokemons {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px
+    }
+
+    select {
+        font-size: 1.2em;
+        width: 150px;
+    }
+
+    #filter-select > a {
+        font-size: 1.2em;
+    }
+}

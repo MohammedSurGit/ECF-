@@ -1,0 +1,143 @@
+#main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 40px 0;
+}
+
+
+
+#pokemon-infos {
+    color: #313131;
+    font-size: 1.6em;
+}
+
+
+#pokemon-id {
+    color: var(--grey-lighter)
+}
+
+#add-to-team {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    color: var(--dark-grey);
+    font-size: 0.9em;
+    padding: 20px 0;
+}
+
+#add-to-team img{
+    height: 25px;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+}
+
+#pokemon {
+    display: grid;
+}
+
+#sprite-container {
+    background-color: var(--light-grey);
+    padding: 40px;
+    border-radius: 8px;
+}
+
+#pokemon img{
+    height: 100%;
+    width: 100%;
+    border-radius: 6px;;
+}
+
+#evolutions {
+    padding: 20px 0;
+}
+
+#pokemon h2 {
+    font-size: 1em;
+    font-weight: 200;
+    color: var(--dark-grey);
+}
+
+#type {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+
+#evolutions span{
+    font-size: 0.7em;
+    font-weight: 200;
+    padding: 0;
+}
+
+.red {
+    color: var(--red)
+}
+
+#pokemon-type {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+span#pokemon-name {
+    text-transform: capitalize;
+}
+
+.pokemon-element {
+    font-size: 0.8em;
+    width: fit-content;
+}
+
+#description p {
+    padding: 10px 0;
+    font-size: 0.6em;
+    font-weight: 200;
+}
+
+#stats {
+    background-color: var(--yellow);
+    color: white;
+    font-size: 0.7em;
+    font-weight: 200;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 6px;
+    margin: 50px 0;
+}
+
+#stats div span {
+    display: block;
+}
+
+#stats-info {
+    color: var(--dark-grey);
+}
+
+#more-pokemons a {
+    padding: 8px 20px;
+    font-size: 0.6em !important;
+    color: white;
+    border: none;
+    background-color: var(--green);
+    border-radius: 4px;
+}
+
+@media screen and (min-width: 1024px) {
+    #pokemon {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+
+    #more-pokemons {
+       text-align: left !important;
+       margin: 20px 0 !important;
+    }
+
+    #main-container a {
+        font-size: 1.2em;
+    }
+}
