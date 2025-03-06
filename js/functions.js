@@ -33,6 +33,8 @@ function typeColor() {
                         e.classList.add('glace');
                     } else if (e.textContent === 'dragon') {
                         e.classList.add('dragon');
+                    } else if (e.textContent === 'rock') {
+                        e.classList.add('roche');
                     } else if (e.textContent === 'dark') {
                         e.classList.add('tenebres');
                     } else if (e.textContent === 'steel') {
