@@ -192,16 +192,22 @@ function getTypes (url){
             /* -------------------------------- */
 
             type.addEventListener('change', (e) => {
-                for(let i = 0; i < 1026; i++) {
+                for(let i = 1; i < 1026; i++) {
                     fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`)
                     .then((r) => r.json())
                     .then((d) => {
-                        if (e.target.value === d.types[0].type.name || 
-                            e.target.value === d.types[1].type.name
-                        ) {
-                            pokemons.innerHTML = "";
-                            getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`)
-                        } 
+                        if(d.types.length > 1) {
+                            if (e.target.value === d.types[0].type.name || 
+                                e.target.value === d.types[1].type.name) {
+                                pokemons.innerHTML = "";
+                                getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`)
+                            } 
+                        } else {
+                            if (e.target.value === d.types[0].type.name) {
+                                pokemons.innerHTML = "";
+                                getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`)
+                            } 
+                        }
                     })
                 }
             })
