@@ -192,7 +192,7 @@ function getTypes (url){
             /* -------------------------------- */
 
             type.addEventListener('change', (e) => {
-                for(let i = 0; i < 1304; i++) {
+                for(let i = 0; i < 1026; i++) {
                     fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`)
                     .then((r) => r.json())
                     .then((d) => {
