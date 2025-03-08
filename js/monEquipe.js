@@ -5,6 +5,12 @@ const pokemons = document.querySelector('#pokemons');
 
 const team = JSON.parse(localStorage.getItem("pokemonTeam")) || [];
 
+/* mets le button supprimer l'équipe en display none si l'équipe est vide */
+
+if (pokemons.innerHTML === '') { 
+  clearTeamBtn.style.display = 'none';
+}
+
 /* recuperer l'id donner en parametre */
 
 const id = getUrlParamName("id");
@@ -139,11 +145,6 @@ const observer = new MutationObserver(() => {
       e.src = "./imgs/grey-pokeball.svg";
     })
   });
-
-  if (pokemons.innerHTML === '') { 
-    clearTeamBtn.style.display = 'none';
-  }
-  
 });
 
 
