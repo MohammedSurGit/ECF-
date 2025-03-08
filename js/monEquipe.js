@@ -8,8 +8,8 @@ const team = JSON.parse(localStorage.getItem("pokemonTeam")) || [];
 /* mets le button supprimer l'équipe en display none si l'équipe est vide apres le fetch*/
 
 setTimeout(() => {
-  if (pokemons.innerHTML === '') { 
-    clearTeamBtn.style.display = 'none';
+  if (pokemons.innerHTML !== '') { 
+    clearTeamBtn.style.display = 'block';
   }
 }, 100)
 

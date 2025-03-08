@@ -16,4 +16,5 @@
     border: none;
     background-color: var(--red);
     border-radius: 4px;
+    display: none;
 }
