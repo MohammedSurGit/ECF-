@@ -28,6 +28,7 @@ function getPokemons(url) {
       return r.json();
     })
     .then((d) => {
+
       /* Creation de carte de pokemons */
       const pokemonCard = document.createElement("div");
       pokemonCard.className = "pokemon-card";
@@ -260,6 +261,7 @@ if (typeParam != null) {
     displayPerType(typeParam);
   });
 } else {
+  pokemons.innerHTML = '';
   for (let i = 1; i < pokemonDisplay; i++) {
   getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
 }
@@ -268,9 +270,30 @@ if (typeParam != null) {
 
 /* affiche un pokemon dont l'id ou le nom est passé en valeur */
 
+
 searchButton.addEventListener("click", () => {
   pokemons.innerHTML = "";
   getPokemons(
     `https://pokeapi.co/api/v2/pokemon/${search.value.toLowerCase()}/`,
   );
+  setTimeout(() => {
+    if (pokemons.innerHTML === '') {
+      pokemons.innerHTML = 'No Pokemon found with this Name or Id';
+    }
+  }, 100)
+});
+
+
+search.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    pokemons.innerHTML = "";
+    getPokemons(
+      `https://pokeapi.co/api/v2/pokemon/${search.value.toLowerCase()}/`,
+    );
+    setTimeout(() => {
+      if (pokemons.innerHTML === '') {
+        pokemons.innerHTML = 'No Pokemon found with this Name or Id';
+      }
+    }, 100)
+  }
 });

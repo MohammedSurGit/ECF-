@@ -10,8 +10,10 @@ const team = JSON.parse(localStorage.getItem("pokemonTeam")) || [];
 setTimeout(() => {
   if (pokemons.innerHTML !== '') { 
     clearTeamBtn.style.display = 'block';
+  } else {
+    pokemons.innerHTML = 'No Pokemon added to this team';
   }
-}, 100)
+}, 100);
 
 /* recuperer l'id donner en parametre */
 
