@@ -80,7 +80,7 @@ function getPokemons(url) {
 
 
             const seeMore = document.createElement('a');
-            seeMore.href = 'details.html'
+            seeMore.href = `details.html?id=${d.id}`;
             seeMore.className = "see-more";
             seeMore.id = `${d.id}`;
             seeMore.textContent = `Plus de détails`;
@@ -110,18 +110,6 @@ function getPokemons(url) {
                     if (!types.includes(e.textContent)) {
                         types.push(e.textContent)
                     }
-            })
-            
-            
-
-            /* -------------------------------- */
-
-            const seeMoreBtn = document.querySelectorAll('.see-more');
-
-            seeMoreBtn.forEach((c) => {
-                c.addEventListener('click', () => {
-                    localStorage.setItem('id', c.id)
-                })
             })
 
             /* -------------------------------- */
@@ -218,4 +206,5 @@ function getTypes (url){
 searchButton.addEventListener('click', () => {
     pokemons.innerHTML = "";
     getPokemons(`https://pokeapi.co/api/v2/pokemon/${search.value.toLowerCase()}/`);
+
 })

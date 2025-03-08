@@ -9,16 +9,16 @@ const evolutions = document.querySelector('#evolutions');
 const pokeballImgs = ['imgs/grey-pokeball.svg', 'imgs/pokeball.svg'];
 addToTeamImg.src = pokeballImgs[0];
 
+const id = getUrlParamName('id');
 
-const id = localStorage.getItem('id');
-team = JSON.parse(localStorage.getItem('pokemonTeam'));
+let pokemonTeam = JSON.parse(localStorage.getItem('pokemonTeam')) || [];
 
-try {
-    if (team.includes(id)){
+document.addEventListener('DOMContentLoaded', () => {
+    if (pokemonTeam.includes(id)) {
         addToTeamImg.src = pokeballImgs[1];
         addToTeamText.textContent = "Ce pokémon est dans mon équipe !"
     }
-} catch(error) {console.log(error)}
+})
 
 function getPokemonData(url) {
     fetch(url)
@@ -112,9 +112,9 @@ function getPokemonData(url) {
 
 getPokemonData(`https://pokeapi.co/api/v2/pokemon/${id}/`);
 
-addToTeamImg.addEventListener('click', () => {
-    let pokemonTeam = [];
 
+
+addToTeamImg.addEventListener('click', () => {
     if (addToTeamImg.src.includes(pokeballImgs[0])){
 
         addToTeamImg.src = pokeballImgs[1];
@@ -128,16 +128,11 @@ addToTeamImg.addEventListener('click', () => {
         addToTeamImg.src = pokeballImgs[0];
         addToTeamText.textContent = "Cliquez ici pour ajouter a votre équipe"
 
-        if (pokemonTeam.includes(id)) {
-            for (let i = 0; i < pokemonTeam.length; i++) {
-                if (pokemonTeam[i] === id) {
-                    pokemonTeam.splice(pokemonTeam[i] - 1, 1)
-                }
-            }
+        let i = pokemonTeam.indexOf(id);
+        if (i !== -1) {
+            pokemonTeam.splice(i, 1);
         }
     }
 
-    let pokemonTeamIds = JSON.stringify(pokemonTeam);
-    localStorage.setItem('pokemonTeam', pokemonTeamIds);
-    console.log(JSON.parse(localStorage.getItem('pokemonTeam')));
+    localStorage.setItem('pokemonTeam', JSON.stringify(pokemonTeam));
 })

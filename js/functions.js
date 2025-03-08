@@ -44,3 +44,8 @@ function typeColor() {
                     }
                 })
 }
+
+function getUrlParamName(name) {
+    let params = new URLSearchParams(window.location.search);
+    return params.get(name);
+}

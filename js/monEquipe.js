@@ -1,5 +1,7 @@
 const team = JSON.parse(localStorage.getItem('pokemonTeam'));
 
+const id = getUrlParamName('id');
+
 function getPokemons(url) {
     fetch(url)
         .then((r) => r.json())
@@ -61,7 +63,7 @@ function getPokemons(url) {
 
 
             const seeMore = document.createElement('a');
-            seeMore.href = 'details.html'
+            seeMore.href = `details.html?id=${d.id}`;
             seeMore.className = "see-more";
             seeMore.id = `${d.id}`;
             seeMore.textContent = `Plus de détails`;
@@ -81,17 +83,7 @@ function getPokemons(url) {
 
             /* -------------------------------- */
 
-            typeColor()
-
-            /* -------------------------------- */
-
-            const seeMoreBtn = document.querySelectorAll('.see-more');
-
-            seeMoreBtn.forEach((c) => {
-                c.addEventListener('click', () => {
-                    localStorage.setItem('id', c.id)
-                })
-            })
+            typeColor();
 
             /* -------------------------------- */
         })
