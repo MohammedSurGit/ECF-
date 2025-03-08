@@ -7,3 +7,13 @@
     height: 15% !important;
     width: 15% !important;
 }
+
+#clear-team {
+    padding: 8px 20px;
+    margin: 10px 0; 
+    font-size: 1em;
+    color: white;
+    border: none;
+    background-color: var(--red);
+    border-radius: 4px;
+}

@@ -1,3 +1,6 @@
+const clearTeamBtn = document.querySelector('#clear-team ');
+const pokemons = document.querySelector('#pokemons');
+
 /* recuperer la liste des pokemons en local storage */
 
 const team = JSON.parse(localStorage.getItem("pokemonTeam")) || [];
@@ -125,6 +128,23 @@ const observer = new MutationObserver(() => {
       });
     }
   });
+
+  /* effacer tous les pokémons de la team */
+
+  clearTeamBtn.addEventListener('click', () => {
+    team.length = 0;
+    localStorage.setItem("pokemonTeam", JSON.stringify(team));
+
+    onMyTeamIcons.forEach((e) => {
+      e.src = "./imgs/grey-pokeball.svg";
+    })
+  });
+
+  if (pokemons.innerHTML === '') { 
+    clearTeamBtn.style.display = 'none';
+  }
+  
 });
+
 
 observer.observe(document.body, { childList: true, subtree: true });
