@@ -6,11 +6,14 @@ const types = document.querySelector('#type');
 const stats = document.querySelector('#stats');
 const evolutions = document.querySelector('#evolutions');
 const desc = document.querySelector('#desc');
+const addToTeam = document.querySelector('#add-to-team');
 
 const pokeballImgs = ['imgs/grey-pokeball.svg', 'imgs/pokeball.svg'];
 addToTeamImg.src = pokeballImgs[0];
 
 const id = getUrlParamName('id');
+console.log(id)
+
 
 let pokemonTeam = JSON.parse(localStorage.getItem('pokemonTeam')) || [];
 
@@ -199,3 +202,18 @@ addToTeamImg.addEventListener('click', () => {
 
     localStorage.setItem('pokemonTeam', JSON.stringify(pokemonTeam));
 })
+
+
+/* easter egg */
+if (id == 151) {
+    setTimeout(() => {
+        addToTeam.innerHTML = '';
+        pokemonName.innerHTML = 'MissingNo';
+        pokemonId.innerHTML = '???';
+        pokemonSprite.src = './imgs/missingNo.png';
+        types.innerHTML = '???';
+        stats.innerHTML = 'ERROR';
+        evolutions.innerHTML = 'N/A';
+        desc.innerHTML = 'The data appears to be corrupted...';
+    }, 3000)
+}
