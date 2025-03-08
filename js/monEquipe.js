@@ -5,11 +5,13 @@ const pokemons = document.querySelector('#pokemons');
 
 const team = JSON.parse(localStorage.getItem("pokemonTeam")) || [];
 
-/* mets le button supprimer l'équipe en display none si l'équipe est vide */
+/* mets le button supprimer l'équipe en display none si l'équipe est vide apres le fetch*/
 
-if (pokemons.innerHTML === '') { 
-  clearTeamBtn.style.display = 'none';
-}
+setTimeout(() => {
+  if (pokemons.innerHTML === '') { 
+    clearTeamBtn.style.display = 'none';
+  }
+}, 100)
 
 /* recuperer l'id donner en parametre */
 
