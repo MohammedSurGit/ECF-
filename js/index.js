@@ -128,6 +128,10 @@ morePokemonsBtn.addEventListener("click", () => {
     pokemons.innerHTML = "";
     getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
   }
+
+  setTimeout(() => {
+      document.querySelector('footer').scrollIntoView();
+  }, 100)
 });
 
 /* afficher les pokemons filtrer par region */
