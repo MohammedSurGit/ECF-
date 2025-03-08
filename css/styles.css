@@ -112,6 +112,8 @@ header img {
 .inconu {background-color: #689b8e}
 .obscur {background-color: #45454a}
 
+.red {color: var(--red)}
+
 
 #more-pokemons {
     text-align: center;

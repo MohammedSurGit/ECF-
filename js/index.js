@@ -19,7 +19,15 @@ getTypes('https://pokeapi.co/api/v2/type/');
 /* fetch les pokemons */  /* -------------------------------- */
 function getPokemons(url) {
     fetch(url)
-        .then((r) => r.json())
+        .then((r) => {
+            
+            if (!r.ok) {
+                console.log('pokemon not found');
+                return;
+            }
+
+            return r.json()
+        })
         .then((d) => {
             /* Creation de carte de pokemons */
             const pokemonCard = document.createElement('div');
@@ -83,7 +91,7 @@ function getPokemons(url) {
             seeMore.href = `details.html?id=${d.id}`;
             seeMore.className = "see-more";
             seeMore.id = `${d.id}`;
-            seeMore.textContent = `Plus de détails`;
+            seeMore.textContent = `More details`;
 
             /* -------------------------------- */
 
@@ -137,7 +145,10 @@ function getRegions (url){
     fetch(url)
         .then((r) => r.json())
         .then((d) => {
+
             let allRegions = d.results;
+
+
 
             for(let i = 0; i < allRegions.length; i++) {
                 if (!regions.includes(allRegions[i].name)) {
@@ -154,8 +165,37 @@ function getRegions (url){
             }
 
             /* -------------------------------- */
+
+            region.addEventListener('change', (e) => {
+
+                for(let i = 0; i < allRegions.length; i++) {
+                    if (allRegions[i].name === e.target.value) {
+                        fetch(allRegions[i].url)
+                        .then((r) => r.json())
+                        .then((d) => {
+
+                            fetch(d.pokedexes[0].url)
+                                .then((r) => r.json())
+                                .then((d) => {
+                                    pokemonsOfRegion = d.pokemon_entries;
+                                    for (let i = 1; i < pokemonsOfRegion.length; i++) {
+                                        pokemons.innerHTML = "";
+                                        getPokemons(`https://pokeapi.co/api/v2/pokemon/${pokemonsOfRegion[i].pokemon_species.name}/`);
+                                    }
+
+
+                                })
+                                .catch((e) => {console.log(e)})
+                        })
+                        .catch((e) => {console.log(e)})
+                    }
+                }
+            });
+
         }).catch(e => {console.log(e)})
 }
+
+
 
 function getTypes (url){
     fetch(url)

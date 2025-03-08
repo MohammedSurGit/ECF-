@@ -5,6 +5,7 @@ const pokemonSprite = document.querySelector('#pokemon-sprite');
 const types = document.querySelector('#type');
 const stats = document.querySelector('#stats');
 const evolutions = document.querySelector('#evolutions');
+const desc = document.querySelector('#desc');
 
 const pokeballImgs = ['imgs/grey-pokeball.svg', 'imgs/pokeball.svg'];
 addToTeamImg.src = pokeballImgs[0];
@@ -16,7 +17,7 @@ let pokemonTeam = JSON.parse(localStorage.getItem('pokemonTeam')) || [];
 document.addEventListener('DOMContentLoaded', () => {
     if (pokemonTeam.includes(id)) {
         addToTeamImg.src = pokeballImgs[1];
-        addToTeamText.textContent = "Ce pokémon est dans mon équipe !"
+        addToTeamText.textContent = "This Pokémon is on my team!"
     }
 })
 
@@ -66,23 +67,23 @@ function getPokemonData(url) {
                         <span id="stats-info">${d.stats[0].base_stat}</span>
                     </div>
                     <div>
-                        <span>Attaque</span>
+                        <span>Attack</span>
                         <span id="stats-info">${d.stats[1].base_stat}</span>
                     </div>
                     <div>
-                        <span>Défense</span>
+                        <span>Defense</span>
                         <span id="stats-info">${d.stats[2].base_stat}</span>
                     </div>
                     <div>
-                        <span>Attaque spécial</span>
+                        <span>Special attack</span>
                         <span id="stats-info">${d.stats[3].base_stat}</span>
                     </div>
                     <div>
-                        <span>Défense spécial</span>
+                        <span>Special defense</span>
                         <span id="stats-info">${d.stats[4].base_stat}</span>
                     </div>
                     <div>
-                        <span>Vitesse</span>
+                        <span>Speed</span>
                         <span id="stats-info">${d.stats[5].base_stat}</span>
                     </div>
             `;
@@ -93,16 +94,78 @@ function getPokemonData(url) {
 
             fetch(`https://pokeapi.co/api/v2/evolution-chain/${id}/`)
                 .then((r) => r.json())
-                .then((d) => {
+                .then((b) => {
 
-                    evolHtml = `
-                        <h2>Évolutions</h2>
-                            <span><a href="#">></a></span>
-                            <span><a href="#">></a></span>
-                            <span><a href="#"></a></span>
-                        `
 
-                    evolutions.innerHTML = evolHtml;
+                    fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
+                        .then((r) => r.json())
+                        .then((e) => {
+
+                            fetch(e.evolution_chain.url)
+                                .then((r) => r.json())
+                                .then((c) => {
+
+                                evolHtml = `
+                                <h2>Évolutions</h2>
+                                    <span class="evolution"><a href="">${c.chain.species.name}</a></span>
+                                    <span> > </span>
+                                    <span class="evolution"><a href="">${c.chain.evolves_to[0].species.name}</a></span>
+                                    <span> > </span>
+                                    <span class="evolution"><a href="">${c.chain.evolves_to[0].evolves_to[0].species.name}</a></span>
+                                `
+
+                                evolutions.innerHTML = evolHtml;
+
+                                evolListUrls = [c.chain.species.url,
+                                                c.chain.evolves_to[0].species.url,
+                                                c.chain.evolves_to[0].evolves_to[0].species.url
+                                            ];
+                                
+                                    
+                                for (let i = 0; i < evolListUrls.length; i++) {
+
+                                    fetch(evolListUrls[i])
+                                        .then((r) => r.json())
+                                        .then((d => {
+
+                                            const evolution = document.querySelectorAll('.evolution a');
+
+                                            evolution.forEach((e) => {
+                                               
+                                                if (e.textContent === d.name){ 
+                                                    e.href = `details.html?id=${d.id}`;
+                                                }
+                                        })
+
+
+                                        })).catch((e) => console.log(e))
+                                }
+
+                                fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
+                                .then((r) => r.json())
+                                .then((d) => {
+
+                                    console.log(d);
+
+                                    desc.textContent = d.flavor_text_entries[3].flavor_text;
+
+                                    const evolution = document.querySelectorAll('.evolution a');
+
+                                    evolution.forEach((e) => {
+                                            if (e.textContent === d.name) {
+                                                e.classList.add('red');
+                                            }
+                                    })
+
+                                }).catch(error => {console.log(error)})
+
+
+                                })
+                                .catch(e => {console.log(e)})
+
+                        })
+                        .catch(e => {console.log(e)})
+
 
                 }).catch(error => {console.log(error)})
 
@@ -118,7 +181,7 @@ addToTeamImg.addEventListener('click', () => {
     if (addToTeamImg.src.includes(pokeballImgs[0])){
 
         addToTeamImg.src = pokeballImgs[1];
-        addToTeamText.textContent = "Ce pokémon est dans mon équipe !"
+        addToTeamText.textContent = "This Pokémon is on my team!"
 
         if (!pokemonTeam.includes(id)) {
             pokemonTeam.push(id);
@@ -126,7 +189,7 @@ addToTeamImg.addEventListener('click', () => {
 
     } else {
         addToTeamImg.src = pokeballImgs[0];
-        addToTeamText.textContent = "Cliquez ici pour ajouter a votre équipe"
+        addToTeamText.textContent = "Click here to add to your team"
 
         let i = pokemonTeam.indexOf(id);
         if (i !== -1) {

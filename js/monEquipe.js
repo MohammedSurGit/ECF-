@@ -66,7 +66,7 @@ function getPokemons(url) {
             seeMore.href = `details.html?id=${d.id}`;
             seeMore.className = "see-more";
             seeMore.id = `${d.id}`;
-            seeMore.textContent = `Plus de détails`;
+            seeMore.textContent = `More details`;
 
             /* -------------------------------- */
 
