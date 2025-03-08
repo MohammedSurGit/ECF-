@@ -1,0 +1,9 @@
+.pokemon-sprite {
+    position: relative;
+}
+
+.on-my-team{
+    position: absolute;
+    height: 15% !important;
+    width: 15% !important;
+}
