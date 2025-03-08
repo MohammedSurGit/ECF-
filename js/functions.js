@@ -1,6 +1,8 @@
 const addToTeamImg = document.querySelector("#add-to-team img");
 const addToTeamText = document.querySelector("#add-to-team span");
 
+/* donne une class css selon l'element */
+
 function typeColor() {
   const e = document.querySelectorAll(".pokemon-element");
 
@@ -45,11 +47,8 @@ function typeColor() {
   });
 }
 
+/* recupere un parametre url */
 function getUrlParamName(name) {
   let params = new URLSearchParams(window.location.search);
   return params.get(name);
-}
-
-function darkMode() {
-  body;
 }

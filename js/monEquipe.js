@@ -1,6 +1,12 @@
+/* recuperer la liste des pokemons en local storage */
+
 const team = JSON.parse(localStorage.getItem("pokemonTeam")) || [];
 
+/* recuperer l'id donner en parametre */
+
 const id = getUrlParamName("id");
+
+/* recuperer les pokemons et les afficher en carte sur la page */
 
 function getPokemons(url) {
   fetch(url)
@@ -12,9 +18,9 @@ function getPokemons(url) {
 
       const pokemonSprite = document.createElement("div");
       pokemonSprite.className = "pokemon-sprite";
-      const onMyTeam = document.createElement('img');
-      onMyTeam.src = './imgs/pokeball.svg';
-      onMyTeam.className = 'on-my-team';
+      const onMyTeam = document.createElement("img");
+      onMyTeam.src = "./imgs/pokeball.svg";
+      onMyTeam.className = "on-my-team";
       onMyTeam.title = `${d.id}`;
       pokemonSprite.appendChild(onMyTeam);
       const spriteImg = document.createElement("img");
@@ -93,26 +99,27 @@ for (let i = 0; i < team.length; i++) {
   getPokemons(`https://pokeapi.co/api/v2/pokemon/${team[i]}/`);
 }
 
+/* verifier si il ya eu des changements sur la page et permettre de supprimer ou ajouter un pokemon a la team */
 
 const observer = new MutationObserver(() => {
-  const onMyTeamIcons = document.querySelectorAll('.on-my-team');
+  const onMyTeamIcons = document.querySelectorAll(".on-my-team");
 
-  onMyTeamIcons.forEach(element => {
-    if (!element.dataset.listener) {  
-      element.dataset.listener = 'true'; 
-      element.addEventListener('click', () => {
-        if (element.src.includes('grey-pokeball.svg')) {
-          element.src = './imgs/pokeball.svg';
+  onMyTeamIcons.forEach((element) => {
+    if (!element.dataset.listener) {
+      element.dataset.listener = "true";
+      element.addEventListener("click", () => {
+        if (element.src.includes("grey-pokeball.svg")) {
+          element.src = "./imgs/pokeball.svg";
           if (!team.includes(element.title)) {
             team.push(element.title);
             localStorage.setItem("pokemonTeam", JSON.stringify(team));
           }
         } else {
-          element.src = './imgs/grey-pokeball.svg';
+          element.src = "./imgs/grey-pokeball.svg";
           if (team.includes(element.title)) {
             const index = team.indexOf(element.title);
-            team.splice(index, 1); 
-            localStorage.setItem("pokemonTeam", JSON.stringify(team)); 
+            team.splice(index, 1);
+            localStorage.setItem("pokemonTeam", JSON.stringify(team));
           }
         }
       });
@@ -121,4 +128,3 @@ const observer = new MutationObserver(() => {
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
-

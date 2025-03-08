@@ -8,12 +8,20 @@ const evolutions = document.querySelector("#evolutions");
 const desc = document.querySelector("#desc");
 const addToTeam = document.querySelector("#add-to-team");
 
+/* liste les images de la pokeball et initie l'image au chargement de la page */
+
 const pokeballImgs = ["imgs/grey-pokeball.svg", "imgs/pokeball.svg"];
 addToTeamImg.src = pokeballImgs[0];
 
+/* recupere l'id du parametre */
+
 const id = getUrlParamName("id");
 
+/* recupere la liste de l'equipe en local storage */
+
 let pokemonTeam = JSON.parse(localStorage.getItem("pokemonTeam")) || [];
+
+/* affiche si le pokemon est ajouter a l'équipe */
 
 document.addEventListener("DOMContentLoaded", () => {
   if (pokemonTeam.includes(id)) {
@@ -22,31 +30,37 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+/* recupere les data du pokemon passer en parametre api */
 function getPokemonData(url) {
   fetch(url)
     .then((r) => r.json())
     .then((d) => {
-        console.log(d)
+      /* affiche l'id et le nom du pokemon */
+
       pokemonName.textContent = `${d.name}`;
       pokemonId.textContent = `N° ${d.id}`;
 
-      /* ------------------------------------- */
+      /* affiche l'image du pokemon */
 
       pokemonSprite.src = `${d.sprites.other.home.front_default}`;
 
-      /* ------------------------------------- */
+      /* cree et affiche le type du pokemon */
 
       function createNewEelement() {
-        const pokemonElement = document.createElement("span");
+        const pokemonElement = document.createElement("a");
+        pokemonElement.href = `../index.html?type=${d.types[0].type.name}`;
         pokemonElement.className = "pokemon-element";
         pokemonElement.textContent = `${d.types[0].type.name}`;
         types.appendChild(pokemonElement);
       }
 
+      /* si plusieurs types cree et affiche le deuxieme type  */
+
       if (d.types.length > 1) {
         createNewEelement();
 
-        const secondPokemonElement = document.createElement("span");
+        const secondPokemonElement = document.createElement("a");
+        secondPokemonElement.href = `../index.html?type=${d.types[1].type.name}`;
         secondPokemonElement.className = "pokemon-element";
         secondPokemonElement.textContent = `${d.types[1].type.name}`;
 
@@ -55,10 +69,11 @@ function getPokemonData(url) {
         createNewEelement();
       }
 
+      /* donne une couleur au type selon sa valeur */
+
       typeColor();
 
-
-      /* ------------------------------------- */
+      /* affiche les stats du pokemon */
 
       statsHtml = `
                 <div>
@@ -89,17 +104,23 @@ function getPokemonData(url) {
 
       stats.innerHTML = statsHtml;
 
-      /* ------------------------------------- */
+      /* si il existe des évolutions, afficher les évolutions */
 
       fetch(`https://pokeapi.co/api/v2/evolution-chain/${id}/`)
         .then((r) => r.json())
         .then((b) => {
+          /* recupere les données du pokemon */
+
           fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
             .then((r) => r.json())
             .then((e) => {
+              /* récupere la chaine d'évolution du pokemon */
+
               fetch(e.evolution_chain.url)
                 .then((r) => r.json())
                 .then((c) => {
+                  /* crée et affiche les évolutions du pokemon  */
+
                   evolHtml = `
                                 <h2>Évolutions</h2>
                                     <span class="evolution"><a href="">${c.chain.species.name}</a></span>
@@ -110,6 +131,8 @@ function getPokemonData(url) {
                                 `;
 
                   evolutions.innerHTML = evolHtml;
+
+                  /* ajoute un lien a toutes les evolutions */
 
                   evolListUrls = [
                     c.chain.species.url,
@@ -136,6 +159,8 @@ function getPokemonData(url) {
                   fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
                     .then((r) => r.json())
                     .then((d) => {
+                      /* verifie l'id de la page pokemon et affiche le lien du pokemon en rouge  */
+
                       desc.textContent = d.flavor_text_entries[3].flavor_text;
 
                       const evolution =
@@ -169,6 +194,8 @@ function getPokemonData(url) {
 }
 
 getPokemonData(`https://pokeapi.co/api/v2/pokemon/${id}/`);
+
+/* boutton ajouter a mon équipe */
 
 addToTeamImg.addEventListener("click", () => {
   if (addToTeamImg.src.includes(pokeballImgs[0])) {

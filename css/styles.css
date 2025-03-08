@@ -225,6 +225,7 @@ h1 {
     aspect-ratio: 1/1;
     width: 100%;
     padding: 20px;
+    position: relative;
 }
 
 .pokemon-sprite img{
@@ -266,6 +267,16 @@ h1 {
     padding: 6px 30px;
     border-radius: 4px;
     font-weight: 200;
+}
+
+.pokemon-sprite {
+    position: relative;
+}
+
+.on-my-team{
+    position: absolute;
+    height: 15% ;
+    width: 15% ;
 }
 
 @media screen and (min-width: 768px){

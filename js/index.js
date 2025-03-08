@@ -9,13 +9,14 @@ const search = document.querySelector("#search-bar input");
 let pokemonDisplay = 23;
 let pokemonsIds = [];
 
+/* initie un tableau region et type */
 let types = [];
 let regions = [];
 
 getRegions("https://pokeapi.co/api/v2/region/");
 getTypes("https://pokeapi.co/api/v2/type/");
 
-/* fetch les pokemons */ /* -------------------------------- */
+/* recuperer les pokemons de l'api pokeApi et creer une carte pour chacun d'entre eux */
 function getPokemons(url) {
   fetch(url)
     .then((r) => {
@@ -37,7 +38,7 @@ function getPokemons(url) {
       spriteImg.src = `${d.sprites.other.home.front_default}`;
       pokemonSprite.appendChild(spriteImg);
 
-      /* -------------------------------- */
+      /* ajoute les infos du pokemon dans la carte */
 
       const pokemonInfos = document.createElement("div");
       pokemonInfos.className = "pokemon-infos";
@@ -53,6 +54,7 @@ function getPokemons(url) {
 
       pokemonId.appendChild(nId);
       pokemonInfos.appendChild(pokemonId);
+
 
       function createNewEelement() {
         const pokemonElement = document.createElement("span");
@@ -73,11 +75,13 @@ function getPokemons(url) {
         createNewEelement();
       }
 
-      /* -------------------------------- */
+     /* ajoute le nom et l'id du pokemon */
 
       const pokemonName = document.createElement("span");
       pokemonName.className = "pokemon-name";
       pokemonName.textContent = `${d.name}`;
+
+      /* ajoute un bouton qui envoie vers la page détails avec un param url */
 
       const seeMore = document.createElement("a");
       seeMore.href = `details.html?id=${d.id}`;
@@ -85,7 +89,7 @@ function getPokemons(url) {
       seeMore.id = `${d.id}`;
       seeMore.textContent = `More details`;
 
-      /* -------------------------------- */
+      /* ajoute tous les éléments créer a la carte */
 
       pokemonCard.appendChild(pokemonSprite);
       pokemonCard.appendChild(pokemonInfos);
@@ -95,7 +99,7 @@ function getPokemons(url) {
       /* Attribution des cartes au DOM */
       pokemons.appendChild(pokemonCard);
 
-      /* -------------------------------- */
+      /* donne une couleur au elements selon leurs types */
 
       typeColor();
 
@@ -116,14 +120,9 @@ function getPokemons(url) {
     });
 }
 
-/* Afficher les pokemons */ /* -------------------------------- */
-for (let i = 1; i < pokemonDisplay; i++) {
-  getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-}
-
-/* Afficher plus de pokemons*/ /* -------------------------------- */
+/* afficher 20 pokemons en plus de ceux initialement afficher */
 morePokemonsBtn.addEventListener("click", () => {
-  pokemonDisplay += 50;
+  pokemonDisplay += 20;
 
   for (let i = 1; i < pokemonDisplay; i++) {
     pokemons.innerHTML = "";
@@ -131,11 +130,14 @@ morePokemonsBtn.addEventListener("click", () => {
   }
 });
 
-/* filtres */ /* -------------------------------- */
+/* afficher les pokemons filtrer par region */
 function getRegions(url) {
   fetch(url)
     .then((r) => r.json())
     .then((d) => {
+
+      /* recupere toutes les régions et les ajoute au filtre région */
+
       let allRegions = d.results;
 
       for (let i = 0; i < allRegions.length; i++) {
@@ -152,7 +154,7 @@ function getRegions(url) {
         region.appendChild(option);
       }
 
-      /* -------------------------------- */
+      /* affiche tous les pokémons a la selection */
 
       region.addEventListener("change", (e) => {
         for (let i = 0; i < allRegions.length; i++) {
@@ -187,10 +189,15 @@ function getRegions(url) {
     });
 }
 
+/* afficher les pokemons filtrer par type */
+
 function getTypes(url) {
   fetch(url)
     .then((r) => r.json())
     .then((d) => {
+
+      /* récupere et affiche toutes les types dans le filtre */
+
       let allTypes = d.results;
 
       for (let i = 0; i < allTypes.length; i++) {
@@ -207,35 +214,55 @@ function getTypes(url) {
         type.appendChild(option);
       }
 
-      /* -------------------------------- */
+      /* affiche tout les pokémons a la séléction */
 
       type.addEventListener("change", (e) => {
-        for (let i = 1; i < 1026; i++) {
-          fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`)
-            .then((r) => r.json())
-            .then((d) => {
-              if (d.types.length > 1) {
-                if (
-                  e.target.value === d.types[0].type.name ||
-                  e.target.value === d.types[1].type.name
-                ) {
-                  pokemons.innerHTML = "";
-                  getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-                }
-              } else {
-                if (e.target.value === d.types[0].type.name) {
-                  pokemons.innerHTML = "";
-                  getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-                }
-              }
-            });
-        }
+        displayPerType(e.target.value);
       });
     })
     .catch((e) => {
       console.log(e);
     });
 }
+
+/* afficher les pokemons d'un type */
+
+function displayPerType(obj) {
+  for (let i = 1; i < 1026; i++) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`)
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.types.length > 1) {
+          if (obj === d.types[0].type.name || obj === d.types[1].type.name) {
+            pokemons.innerHTML = "";
+            getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+          }
+        } else {
+          if (obj === d.types[0].type.name) {
+            pokemons.innerHTML = "";
+            getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+          }
+        }
+      });
+  }
+}
+
+/* afficher les pokemons d'un type au chargement de la page si non affiche les 20 premiers pékemon selon leurs ids*/
+
+const typeParam = getUrlParamName("type");
+
+if (typeParam != null) {
+  document.addEventListener("DOMContentLoaded", () => {
+    displayPerType(typeParam);
+  });
+} else {
+  for (let i = 1; i < pokemonDisplay; i++) {
+  getPokemons(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+}
+}
+
+
+/* affiche un pokemon dont l'id ou le nom est passé en valeur */
 
 searchButton.addEventListener("click", () => {
   pokemons.innerHTML = "";
