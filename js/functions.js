@@ -1,5 +1,6 @@
 const addToTeamImg = document.querySelector("#add-to-team img");
 const addToTeamText = document.querySelector("#add-to-team span");
+const cry = document.querySelector('#cry');
 
 /* donne une class css selon l'element */
 
@@ -51,4 +52,16 @@ function typeColor() {
 function getUrlParamName(name) {
   let params = new URLSearchParams(window.location.search);
   return params.get(name);
+}
+
+
+function getCry (pokemonIdOrName){
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIdOrName}/`)
+          .then((r) => r.json())
+          .then((d) => {
+            cry.src = `${d.cries.latest}`;
+            cry.currentTime = 0;
+            cry.play();
+          })
+          .catch(e => {console.log(e)})
 }

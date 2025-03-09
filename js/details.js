@@ -200,6 +200,11 @@ getPokemonData(`https://pokeapi.co/api/v2/pokemon/${id}/`);
 addToTeamImg.addEventListener("click", () => {
   if (addToTeamImg.src.includes(pokeballImgs[0])) {
     addToTeamImg.src = pokeballImgs[1];
+
+    /* récuperer le cri du pokémon */
+
+    getCry(id);
+
     addToTeamText.textContent = "This Pokémon is on my team!";
 
     if (!pokemonTeam.includes(id)) {

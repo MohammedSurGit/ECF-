@@ -123,6 +123,13 @@ const observer = new MutationObserver(() => {
       element.addEventListener("click", () => {
         if (element.src.includes("grey-pokeball.svg")) {
           element.src = "./imgs/pokeball.svg";
+
+          /* récuperer le cri du pokémon */
+
+          getCry(element.title);
+
+
+
           if (!team.includes(element.title)) {
             team.push(element.title);
             localStorage.setItem("pokemonTeam", JSON.stringify(team));
