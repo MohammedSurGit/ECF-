@@ -101,7 +101,7 @@ span#pokemon-name {
 }
 
 #stats {
-    background-color: var(--yellow);
+    background-color: var(--blue);
     color: white;
     font-size: 0.7em;
     font-weight: 200;
@@ -115,6 +115,7 @@ span#pokemon-name {
 
 #stats div span {
     display: block;
+    padding: 2px 0;
 }
 
 #stats-info {
