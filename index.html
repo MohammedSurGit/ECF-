@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
+    <meta name="description" content="Explore the ultimate Pokédex! Discover all Pokémon with their stats, abilities, and evolutions in a beautifully designed, user-friendly interface.">
     <script src="js/functions.js" defer></script>
     <script src="js/index.js" defer></script>
     <link rel="stylesheet" href="css/index.css">
@@ -17,7 +18,7 @@
             <span>Search by Name or ID</span>
             <div id="search-bar">
                 <input type="text" id="search" placeholder="my research">
-                <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="search-button"><i class="fa-solid fa-magnifying-glass" aria-label="Search button"></i></button>
             </div>
         </div>
     </header>
@@ -31,13 +32,13 @@
                 <div id="filter">
                     <div id="region-select">
                         <select name="region" id="region">
-                            <option value="region">Region</option>
+                            <option value="region" selected disabled>Region</option>
                         </select>
                     </div>
                     
                     <div id="type-select">
                         <select name="type" id="type">
-                            <option value="type">Type</option>
+                            <option value="type" selected disabled>Type</option>
                         </select>
                     </div>
                 </div>
