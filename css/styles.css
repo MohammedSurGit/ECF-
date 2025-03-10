@@ -227,6 +227,7 @@ h1 {
     width: 100%;
     padding: 20px;
     position: relative;
+    color: var(--dark-grey) !important;
 }
 
 .pokemon-sprite img{

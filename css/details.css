@@ -120,6 +120,7 @@ span#pokemon-name {
 #stats div span {
     display: block;
     padding: 2px 0;
+    color: var(--dark-grey);
 }
 
 #stats-info {
