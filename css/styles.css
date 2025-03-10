@@ -258,7 +258,11 @@ h1 {
 .pokemon-name {
     padding: 4px 0;
     font-size: 1.4em;
-    color: var(--dark-grey)
+    color: var(--dark-grey);
+}
+
+.pokemon-name::first-letter {
+    text-transform: uppercase;
 }
 
 .see-more {
