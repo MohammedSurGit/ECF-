@@ -199,7 +199,7 @@ h1 {
 
 @media screen and (min-width: 1024px){
     main {
-        padding: 60px 180px;
+        padding: 20px 180px;
     }
 }
 
@@ -297,7 +297,20 @@ h1 {
 
 @media screen and (min-width: 1440px){
     .pokemon-infos {
-        font-size: 1.6em;
+        font-size: 1.2em;
+    }
+
+    .pokemon-infos span:first-child {
+        padding: 0;
+    }
+
+    .pokemon-infos span {
+        padding: 4px 20px;
+    }
+
+    .see-more {
+        font-size: 1.4em;
+        padding: 4px 30px;
     }
 
     .pokemon-name {
@@ -328,6 +341,6 @@ footer {
 
 @media screen and (min-width: 1024px){
     footer {
-       height: 200px;
+       height: 160px;
     }
 }
