@@ -129,8 +129,6 @@ const observer = new MutationObserver(() => {
 
           getCry(element.title);
 
-
-
           if (!team.includes(element.title)) {
             team.push(element.title);
             localStorage.setItem("pokemonTeam", JSON.stringify(team));

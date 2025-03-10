@@ -101,7 +101,7 @@ span#pokemon-name {
 }
 
 #stats {
-    background-color: var(--blue);
+    background-color: var(--yellow);
     color: white;
     font-size: 0.7em;
     font-weight: 200;
@@ -111,6 +111,10 @@ span#pokemon-name {
     padding: 20px;
     border-radius: 6px;
     margin: 50px 0;
+}
+
+#stats div span:first-child {
+    font-weight: 400;
 }
 
 #stats div span {
@@ -133,7 +137,7 @@ span#pokemon-name {
 
 @media screen and (min-width: 1024px) {
     #pokemon {
-        grid-template-columns: 55% 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 60px;
     }
 
