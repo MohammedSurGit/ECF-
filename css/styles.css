@@ -42,17 +42,16 @@ header img {
     margin-left: -8px;
 }
 
-#search {
+#search-content {
     background-color: #313131;
     font-weight: 200;
     padding: 15px;
 }
 
-#search span {
+#search-content span {
     display: block;
     color: white;
 }
-
 
 #search-bar {
    display: flex;
@@ -64,6 +63,8 @@ header img {
     background-color: white;
     flex-grow: 1;
     border: #595959;
+    height: 40px;
+    padding: 0 10px; 
 }
 
 #search-bar button {
@@ -147,7 +148,7 @@ header img {
         padding: 5px 80px;
     }
 
-    #search {
+    #search-content {
         padding: 15px 80px;
      }
 
@@ -163,7 +164,7 @@ header img {
         padding: 5px 180px;
     }
 
-    #search {
+    #search-content {
         padding: 40px 180px;
      }
 
