@@ -38,6 +38,7 @@ function getPokemons(url) {
       pokemonSprite.appendChild(onMyTeam);
       const spriteImg = document.createElement("img");
       spriteImg.src = `${d.sprites.other.home.front_default}`;
+      spriteImg.alt = `Front image of pokemon ${d.name}`;
       pokemonSprite.appendChild(spriteImg);
 
       /* -------------------------------- */
@@ -84,7 +85,7 @@ function getPokemons(url) {
       const seeMore = document.createElement("a");
       seeMore.href = `details.html?id=${d.id}`;
       seeMore.className = "see-more";
-      seeMore.id = `${d.id}`;
+      seeMore.title = `Find out more about Pokemon ${d.name}`;
       seeMore.textContent = `More details`;
 
       /* -------------------------------- */

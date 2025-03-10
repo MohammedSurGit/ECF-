@@ -37,6 +37,7 @@ function getPokemons(url) {
       pokemonSprite.className = "pokemon-sprite";
       const spriteImg = document.createElement("img");
       spriteImg.src = `${d.sprites.other.home.front_default}`;
+      spriteImg.alt = `front image of pokemon ${d.name}`;
       pokemonSprite.appendChild(spriteImg);
 
       /* ajoute les infos du pokemon dans la carte */
@@ -87,7 +88,7 @@ function getPokemons(url) {
       const seeMore = document.createElement("a");
       seeMore.href = `details.html?id=${d.id}`;
       seeMore.className = "see-more";
-      seeMore.id = `${d.id}`;
+      seeMore.title = `See more about pokemon ${d.name}`;
       seeMore.textContent = `More details`;
 
       /* ajoute tous les éléments créer a la carte */

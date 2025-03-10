@@ -50,6 +50,7 @@ function getPokemonData(url) {
         const pokemonElement = document.createElement("a");
         pokemonElement.href = `../index.html?type=${d.types[0].type.name}`;
         pokemonElement.className = "pokemon-element";
+        pokemonElement.title = `See all ${d.types[0].type.name} pokemons`;
         pokemonElement.textContent = `${d.types[0].type.name}`;
         types.appendChild(pokemonElement);
       }
@@ -62,6 +63,7 @@ function getPokemonData(url) {
         const secondPokemonElement = document.createElement("a");
         secondPokemonElement.href = `../index.html?type=${d.types[1].type.name}`;
         secondPokemonElement.className = "pokemon-element";
+        secondPokemonElement.title = `See all ${d.types[1].type.name} pokemons`;
         secondPokemonElement.textContent = `${d.types[1].type.name}`;
 
         types.appendChild(secondPokemonElement);
@@ -123,11 +125,11 @@ function getPokemonData(url) {
 
                   evolHtml = `
                                 <h2>Évolutions</h2>
-                                    <span class="evolution"><a href="">${c.chain.species.name}</a></span>
+                                    <span class="evolution"><a href="" alt="See evolution ${c.chain.species.name}">${c.chain.species.name}</a></span>
                                     <span> > </span>
-                                    <span class="evolution"><a href="">${c.chain.evolves_to[0].species.name}</a></span>
+                                    <span class="evolution"><a href="" alt="See evolution ${c.chain.evolves_to[0].species.name}">${c.chain.evolves_to[0].species.name}</a></span>
                                     <span> > </span>
-                                    <span class="evolution"><a href="">${c.chain.evolves_to[0].evolves_to[0].species.name}</a></span>
+                                    <span class="evolution"><a href="" alt="See evolution ${c.chain.evolves_to[0].evolves_to[0].species.name}">${c.chain.evolves_to[0].evolves_to[0].species.name}</a></span>
                                 `;
 
                   evolutions.innerHTML = evolHtml;
@@ -200,6 +202,7 @@ getPokemonData(`https://pokeapi.co/api/v2/pokemon/${id}/`);
 addToTeamImg.addEventListener("click", () => {
   if (addToTeamImg.src.includes(pokeballImgs[0])) {
     addToTeamImg.src = pokeballImgs[1];
+    addToTeamImg.alt = 'Pokeball in color';
 
     /* récuperer le cri du pokémon */
 
@@ -212,6 +215,7 @@ addToTeamImg.addEventListener("click", () => {
     }
   } else {
     addToTeamImg.src = pokeballImgs[0];
+    addToTeamImg.alt = 'Pokeball in black and white';
     addToTeamText.textContent = "Click here to add to your team";
 
     let i = pokemonTeam.indexOf(id);
